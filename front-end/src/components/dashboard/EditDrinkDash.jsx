@@ -177,7 +177,7 @@ const EditDrinkDash = () => {
                     }
 
                     <Form.Group className="col-md-8 mx-auto mb-3">
-                        <Form.Label htmlFor='image' className='d-block text-start fw-bold' style={{ fontSize: '1.25rem' }}>Nueva Imagen: <em className='text-warning fw-normal fst-italic' style={{ fontSize: '0.75rem' }}>(Al editar debe elegir una nueva imagen)</em></Form.Label>
+                        <Form.Label htmlFor='image' className='d-block text-start fw-bold' style={{ fontSize: '1.25rem' }}>Nueva Imagen:</Form.Label>
                         <Form.Control type="file" id="image" name='image' className='bg-transparent border-warning text-light' onChange={ handleInput } onBlur={ handleInput } />
                         {
                             errorsState.image &&
