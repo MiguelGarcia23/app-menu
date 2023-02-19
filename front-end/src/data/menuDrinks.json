@@ -1,0 +1,209 @@
+[
+    {
+        "id": 1,
+        "title": "Fernet Branca",
+        "price": 600,
+        "description": "Con Coca Cola",
+        "image": "coctel-fernet-branca.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 2,
+        "title": "Mint Tonic",
+        "price": 600,
+        "description": "Branca Menta Ricetta Italiana, Agua tónica",
+        "image": "coctel-mint-tonic.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 3,
+        "title": "Watermelon Mojito",
+        "price": 700,
+        "description": "Smirno sandia, hierba buena, limón, almibar, frutos rojos, soda",
+        "image": "coctel-fernet-branca.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 4,
+        "title": "Americano",
+        "price": 550,
+        "description": "Campari, Carpano rosso, soda y rodaja de naranja",
+        "image": "coctel-campari-orange.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 5,
+        "title": "Gintonic",
+        "price": 650,
+        "description": "Gin Gordon's, agua tónica, fruta a elección",
+        "image": "coctel-gintonic.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 6,
+        "title": "Campari Orange",
+        "price": 600,
+        "description": "Campari, jugo de naranja exprimido",
+        "image": "coctel-campari-orange.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 7,
+        "title": "Mojito",
+        "price": 700,
+        "description": "Ron, almibar, jugo de limón, hierba buena, soda, Angostura",
+        "image": "coctel-fernet-branca.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 8,
+        "title": "White Russian",
+        "price": 700,
+        "description": "Vodka Sernova, Licor de café Borghetti, crema de leche",
+        "image": "coctel-gintonic.png",
+        "category" :"cocteles",
+        "available": true
+    },
+    {
+        "id": 9,
+        "title": "Imperial Lager",
+        "price": 950,
+        "description": "970ml",
+        "image": "cerveza-imperial-lager.png",
+        "category" :"cervezas",
+        "available": true
+    },
+    {
+        "id": 10,
+        "title": "Lata Bud Light",
+        "price": 550,
+        "description": "473ml. Stout, Ipa, Apa, Amber",
+        "image": "cerveza-bud-light.png",
+        "category" :"cervezas",
+        "available": true
+    },
+    {
+        "id": 11,
+        "title": "Heineken",
+        "price": 550,
+        "description": "330ml",
+        "image": "cerveza-heineken.png",
+        "category" :"cervezas",
+        "available": true
+    },
+    {
+        "id": 12,
+        "title": "Sol",
+        "price": 500,
+        "description": "330ml",
+        "image": "cerveza-imperial-lager.png",
+        "category" :"cervezas",
+        "available": true
+    },
+    {
+        "id": 13,
+        "title": "Reserva Malbec",
+        "price": 1750,
+        "description": "1 botella",
+        "image": "vino-malbec.png",
+        "category" :"vinos & espumantes",
+        "available": true
+    },
+    {
+        "id": 14,
+        "title": "Latitud 33 Chardonay",
+        "price": 1450,
+        "description": "1 botella",
+        "image": "vino-chandon.png",
+        "category" :"vinos & espumantes",
+        "available": true
+    },
+    {
+        "id": 15,
+        "title": "Mercier",
+        "price": 1850,
+        "description": "1 botella",
+        "image": "vino-mercier.png",
+        "category" :"vinos & espumantes",
+        "available": true
+    },
+    {
+        "id": 16,
+        "title": "Chandon",
+        "price": 2750,
+        "description": "1 botella",
+        "image": "vino-chandon.png",
+        "category" :"vinos & espumantes",
+        "available": true
+    },
+    {
+        "id": 17,
+        "title": "Gaseosa",
+        "price": 400,
+        "description": "500ml. Coca cola, sprite, fanta, coca cola sin azúcar",
+        "image": "gaseosa.png",
+        "category" :"otras bebidas",
+        "available": true
+    },
+    {
+        "id": 18,
+        "title": "Agua c/s Gas",
+        "price": 400,
+        "description": "1 botella",
+        "image": "agua.png",
+        "category" :"otras bebidas",
+        "available": true
+    },
+    {
+        "id": 19,
+        "title": "Aquarius",
+        "price": 400,
+        "description": "500ml. Pomelo, manzana, pera",
+        "image": "agua.png",
+        "category" :"otras bebidas",
+        "available": true
+    },
+    {
+        "id": 20,
+        "title": "Jugo Exprimido",
+        "price": 450,
+        "description": "Naranja, naranja y arándanos",
+        "image": "jugo-natural.png",
+        "category" :"otras bebidas",
+        "available": true
+    },
+    {
+        "id": 21,
+        "title": "Limonada Especial",
+        "price": 400,
+        "description": "Con menta y jengibre",
+        "image": "limonada.png",
+        "category" :"otras bebidas",
+        "available": true
+    },
+    {
+        "id": 22,
+        "title": "Jarra de Limonada Especial",
+        "price": 800,
+        "description": "1 jarra",
+        "image": "limonada.png",
+        "category" :"otras bebidas",
+        "available": true
+    },
+    {
+        "id": 23,
+        "title": "Energizante Red Bull",
+        "price": 500,
+        "description": "1 lata",
+        "image": "red-bull.png",
+        "category" :"otras bebidas",
+        "available": true
+    }
+]

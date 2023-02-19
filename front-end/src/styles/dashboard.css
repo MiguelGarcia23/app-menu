@@ -1,0 +1,16 @@
+.nav-dropdown a {
+    color: black;
+    font-weight: 500;
+}
+
+.page-link {
+    color: black !important;
+    font-weight: 700;
+}
+
+.active .page-link { 
+    background: #FFC107 !important;
+    color: black !important;
+    font-weight: 700;
+    border: 2px solid black !important;
+}
