@@ -55,7 +55,7 @@ const SaleDetail = () => {
                     </div>
                 </div>
 
-                <div className='d-flex flex-wrap justify-content-between pb-3 border-bottom border-1 border-warning'>
+                <div className='d-flex flex-wrap justify-content-between pb-3 border-bottom border-1 border-warning mb-3'>
 
                     <div className='w-50 pe-3'>
                         <div className='d-flex flex-nowrap align-items-center mb-3'>
@@ -103,7 +103,20 @@ const SaleDetail = () => {
 
                 </div>
 
-                <p className='fs-3 text-warning fw-bold text-end pt-3'>Total: ${ sale.finalAmount }</p>
+                <div>
+                    <div className='d-flex justify-content-between mb-2'>
+                        <p className='fw-semibold m-0'>Subtotal</p>
+                        <p className='fw-bolder m-0'>${ sale.totalAmountBeforeIVA }</p>
+                    </div>
+                    <div className='d-flex justify-content-between mb-2'>
+                        <p className='fw-semibold m-0'>IVA</p>
+                        <p className='fw-bolder m-0'>${ sale.iva }</p>
+                    </div>
+                    <div className='d-flex justify-content-between pt-1 border-top border-white'>
+                        <p className='fw-semibold' style={{ fontSize: '1.25rem' }}>Total</p>
+                        <p className='fw-bolder text-warning' style={{ fontSize: '1.25rem' }}>${ sale.finalAmount }</p>
+                    </div>
+                </div>
 
             </div>
 

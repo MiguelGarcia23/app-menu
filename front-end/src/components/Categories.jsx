@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import Card from 'react-bootstrap/Card';
 
+import authenticatedRouteClient from '../auth/AuthenticatedRouteClient';
+
+
 const Categories = () => {
 
     let [ nombre, setNombre ] = useState( false );
@@ -64,4 +67,4 @@ const Categories = () => {
 
 }
 
-export default Categories;
+export default authenticatedRouteClient( Categories );

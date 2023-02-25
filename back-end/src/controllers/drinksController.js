@@ -14,6 +14,20 @@ const drinksController = {
             drinks,
             status: 200,
         });
+
+    },
+
+    allDrinksAvailables: ( req, res ) => {
+
+        const drinks = JSON.parse( fs.readFileSync( drinksFilePath, 'utf-8' ) );
+
+        const drinksAvailables = drinks.filter( drink => drink.available === true );
+
+        res.status(200).json({
+            drinks: drinksAvailables,
+            status: 200,
+        });
+
     },
 
     drinkDetail: ( req, res ) => {
@@ -105,6 +119,33 @@ const drinksController = {
         let drinks = drinksFile.filter( drinkFile => drinkFile.id !== param );
 
         drinks.push( newDrink );
+
+        drinks = drinks.sort( ( a, b ) => a.id - b.id );
+
+        let drinksJSON = JSON.stringify( drinks );
+
+        fs.writeFileSync( drinksFilePath, drinksJSON );
+
+    },
+
+    available: ( req, res ) => {
+
+        const param = JSON.parse( req.params.id );
+
+        const drinksFile = JSON.parse( fs.readFileSync( drinksFilePath, 'utf-8' ) );
+
+        let drink = drinksFile.find( drinkJSON => drinkJSON.id === param );
+
+        let newDrink = {
+            ...drink,
+            available: true
+        }
+
+        let drinks = drinksFile.filter( drinkFile => drinkFile.id !== param );
+
+        drinks.push( newDrink );
+
+        drinks = drinks.sort( ( a, b ) => a.id - b.id );
 
         let drinksJSON = JSON.stringify( drinks );
 

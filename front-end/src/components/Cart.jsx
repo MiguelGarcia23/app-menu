@@ -6,8 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import CartItem from './CartItem';
 
-let dataFoods = require('../data/menuFoods.json');
-let dataDrinks = require('../data/menuDrinks.json');
+import authenticatedRouteClient from '../auth/AuthenticatedRouteClient';
 
 
 const Cart = () => {
@@ -33,25 +32,40 @@ const Cart = () => {
         if ( cartFoods === null ) {
             cartFoods = [];
         } else {
-            let lastFoodsCart = [];
-    
-            dataFoods.forEach( foodMenu => {
-                cartFoods.forEach( foodSession => {
-                    
-                    if( foodMenu.id === foodSession.id ) {
-                        lastFoodsCart.push({
-                            ...foodMenu,
-                            quantity: foodSession.quantity
-                        })
-                    }
-                })
-            })
-    
-            setFinalFoodsCart( lastFoodsCart );
 
-            priceFoods = lastFoodsCart.reduce( ( acum, food ) => {
-                return acum + ( food.price * food.quantity );
-            }, 0);
+            const getFoods = async () => {
+
+                let listFoods = [];
+    
+                await fetch('http://localhost:3030/foods/availables')
+                    .then(( response ) => response.json())
+                    .then(( data ) => {
+                        listFoods = data.foods;
+                    })
+                    .catch((e) => console.log(e));
+    
+                let lastFoodsCart = [];
+
+                listFoods.forEach( foodMenu => {
+                    cartFoods.forEach( foodSession => {
+                        
+                        if( foodMenu.id === foodSession.id ) {
+                            lastFoodsCart.push({
+                                ...foodMenu,
+                                quantity: foodSession.quantity
+                            })
+                        }
+                    })
+                })
+        
+                setFinalFoodsCart( lastFoodsCart );
+    
+                priceFoods = lastFoodsCart.reduce( ( acum, food ) => {
+                    return acum + ( food.price * food.quantity );
+                }, 0);
+            }
+    
+            getFoods();
         }
 
         let cartDrinks = JSON.parse( localStorage.getItem('cartDrinks') );
@@ -60,25 +74,40 @@ const Cart = () => {
         if ( cartDrinks === null ) {
             cartDrinks = [];
         } else {
-            let lastDrinksCart = [];
-    
-            dataDrinks.forEach( drinkMenu => {
-                cartDrinks.forEach( drinkSession => {
-                    
-                    if( drinkMenu.id === drinkSession.id ) {
-                        lastDrinksCart.push({
-                            ...drinkMenu,
-                            quantity: drinkSession.quantity
-                        })
-                    }
-                })
-            })
-    
-            setFinalDrinksCart( lastDrinksCart );
 
-            priceDrinks = lastDrinksCart.reduce( ( acum, drink ) => {
-                return acum + ( drink.price * drink.quantity );
-            }, 0);
+            const getDrinks = async () => {
+
+                let listDrinks = [];
+    
+                await fetch('http://localhost:3030/drinks/availables')
+                    .then(( response ) => response.json())
+                    .then(( data ) => {
+                        listDrinks = data.drinks;
+                    })
+                    .catch((e) => console.log(e));
+    
+                let lastDrinksCart = [];
+
+                listDrinks.forEach( drinkMenu => {
+                    cartDrinks.forEach( drinkSession => {
+                        
+                        if( drinkMenu.id === drinkSession.id ) {
+                            lastDrinksCart.push({
+                                ...drinkMenu,
+                                quantity: drinkSession.quantity
+                            })
+                        }
+                    })
+                })
+        
+                setFinalDrinksCart( lastDrinksCart );
+    
+                priceDrinks = lastDrinksCart.reduce( ( acum, drink ) => {
+                    return acum + ( drink.price * drink.quantity );
+                }, 0);
+            }
+    
+            getDrinks();
         }
 
         setFinalPrice( priceFoods + priceDrinks );
@@ -126,12 +155,17 @@ const Cart = () => {
 
     let sendOrder = () => {
 
-        let finalAmount = finalPrice + ( finalPrice * 0.21 );
+        let totalAmountBeforeIVA = finalPrice;
+        let iva = finalPrice * 0.21;
+        let finalAmount = totalAmountBeforeIVA + iva;
 
         const formData = new FormData();
         formData.append('client', name);
+        formData.append('table', table);
         formData.append('foods', JSON.stringify( finalFoodsCart ));
         formData.append('drinks', JSON.stringify( finalDrinksCart ));
+        formData.append('totalAmountBeforeIVA', totalAmountBeforeIVA.toString());
+        formData.append('iva', iva.toString());
         formData.append('finalAmount', finalAmount.toString());
         
         fetch('http://localhost:3030/sales/new', {
@@ -175,11 +209,14 @@ const Cart = () => {
 
     return (
 
-        <main className='py-5 px-3'>
+        <main className='pt-4 pb-5 px-3'>
+
+            <i className='d-block fa-solid fa-arrow-left text-start fs-3' style={{ color: '#AAAAAA' }} onClick={ () => window.history.back() } />
+
             <h1 className='text-white fs-1' style={{ marginBottom: '2.5rem' }}>Mi pedido</h1>
 
             <div className='d-flex flex-nowrap align-items-center mb-3'>
-                <i className="fa-solid fa-burger text-warning fs-3 me-2"></i>
+                <i className='fa-solid fa-burger text-warning fs-3 me-2'></i>
                 <p className='text-white text-start p-0 m-0'>Comidas: { finalFoodsCart.length }</p>
             </div>
 
@@ -250,4 +287,4 @@ const Cart = () => {
     )
 }
 
-export default Cart;
+export default authenticatedRouteClient( Cart );

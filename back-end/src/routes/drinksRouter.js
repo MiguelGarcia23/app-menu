@@ -13,6 +13,9 @@ const multerMiddleware = require ('../middlewares/uploadImageDrink');
 /* Configuramos el envío de todas las bebidas */
 router.get ('/', drinksController.allDrinks);
 
+/* Configuramos el envío de todas las bebidas disponibles */
+router.get ('/availables', drinksController.allDrinksAvailables);
+
 /* Configuramos el envío de cada bebida */
 router.get ('/:id', drinksController.drinkDetail);
 
@@ -24,6 +27,9 @@ router.post ('/edit/:id', multerMiddleware.single('image'), drinksController.edi
 
 /* Configuramos la ruta de inhabilitar bebida */
 router.post ('/unavailable/:id', drinksController.unavailable);
+
+/* Configuramos la ruta de habilitar bebida */
+router.post ('/available/:id', drinksController.available);
 
 /* Exportamos la variable router */
 module.exports = router;

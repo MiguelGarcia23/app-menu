@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import DrinkItem from './DrinkItem';
 
+import authenticatedRouteClient from '../../auth/AuthenticatedRouteClient';
+
 import '../../styles/drinksGroup.css';
 
 
@@ -14,7 +16,7 @@ const DrinksGroup = ({ title }) => {
 
             let listDrinks = [];
 
-            await fetch('http://localhost:3030/drinks')
+            await fetch('http://localhost:3030/drinks/availables')
                 .then(( response ) => response.json())
                 .then(( data ) => {
                     listDrinks = data.drinks;
@@ -79,4 +81,4 @@ const DrinksGroup = ({ title }) => {
 
 }
 
-export default DrinksGroup;
+export default authenticatedRouteClient( DrinksGroup );

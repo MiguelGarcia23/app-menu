@@ -1,6 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+import authenticatedRouteClient from '../auth/AuthenticatedRouteClient';
+
 
 const CartItemQuantity = ( props ) => {
 
@@ -132,4 +134,4 @@ const CartItemQuantity = ( props ) => {
     )
 }
 
-export default CartItemQuantity
+export default authenticatedRouteClient( CartItemQuantity );

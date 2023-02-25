@@ -48,6 +48,20 @@ const DrinkDetailDash = () => {
         navigate('/dashboard/drinks');
     };
 
+    const availableDrink = () => {
+        
+        fetch(`http://localhost:3030/drinks/available/${ id }`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/json',
+            },
+            body: JSON.stringify( drink ),
+        })
+            .then(response => response.json())
+
+        navigate('/dashboard/drinks');
+    };
+
     return (
 
         <>
@@ -66,7 +80,14 @@ const DrinkDetailDash = () => {
                         }
                         <div className='d-flex justify-content-evenly align-items-center mb-4'>
                             <Button variant='warning' className='fw-bold' onClick={ nextPageEdit }>Editar bebida</Button>
-                            <Button variant='danger' className='fw-bold' onClick={ unavailableDrink }>Quitar disponibilidad</Button>
+                            {
+                                drink.available === true &&
+                                <Button variant='danger' className='fw-bold' onClick={ unavailableDrink }>Quitar disponibilidad</Button>
+                            }
+                            {
+                                drink.available === false &&
+                                <Button variant='success' className='fw-bold' onClick={ availableDrink }>Habilitar disponibilidad</Button>
+                            }
                         </div>
                     </div>
 

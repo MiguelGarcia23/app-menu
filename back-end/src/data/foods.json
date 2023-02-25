@@ -114,7 +114,7 @@
     "description": "Muzzarella, salsa de tomate, crema de roquefort, panceta y cebolla caramelizada",
     "price": 2100,
     "image": "pizza-genovesa.png",
-    "available": false
+    "available": true
   },
   {
     "id": 14,

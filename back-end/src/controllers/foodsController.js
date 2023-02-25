@@ -16,6 +16,18 @@ const foodsController = {
         });
     },
 
+    allFoodsAvailables: ( req, res ) => {
+
+        const foods = JSON.parse( fs.readFileSync( foodsFilePath, 'utf-8' ) );
+
+        const foodsAvailables = foods.filter( food => food.available === true );
+
+        res.status(200).json({
+            foods: foodsAvailables,
+            status: 200,
+        });
+    },
+
     foodDetail: ( req, res ) => {
 
         const param = JSON.parse( req.params.id );
@@ -107,6 +119,35 @@ const foodsController = {
         let foods = foodsFile.filter( foodFile => foodFile.id !== param );
 
         foods.push( newFood );
+
+        foods = foods.sort( ( a, b ) => a.id - b.id );
+
+        let foodsJSON = JSON.stringify( foods );
+
+        console.log( foodsJSON );
+
+        fs.writeFileSync( foodsFilePath, foodsJSON );
+
+    },
+
+    available: ( req, res ) => {
+
+        const param = JSON.parse( req.params.id );
+
+        const foodsFile = JSON.parse( fs.readFileSync( foodsFilePath, 'utf-8' ) );
+
+        let food = foodsFile.find( foodJSON => foodJSON.id === param );
+
+        let newFood = {
+            ...food,
+            available: true
+        }
+
+        let foods = foodsFile.filter( foodFile => foodFile.id !== param );
+
+        foods.push( newFood );
+
+        foods = foods.sort( ( a, b ) => a.id - b.id );
 
         let foodsJSON = JSON.stringify( foods );
 

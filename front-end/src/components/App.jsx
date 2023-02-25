@@ -21,6 +21,9 @@ import WeeklySales from './dashboard/WeeklySales';
 import MonthlySales from './dashboard/MonthlySales';
 import AnnualSales from './dashboard/AnnualSales';
 import SaleDetail from './dashboard/SaleDetail';
+import PendingSales from './dashboard/PendingSales';
+import TicketSale from './dashboard/TicketSale';
+import ErrorWidth from './ErrorWidth';
 
 import '../styles/App.css';
 
@@ -51,6 +54,9 @@ function App() {
         <Route path='/dashboard/sales/monthly' element={ <MonthlySales /> } />
         <Route path='/dashboard/sales/annual' element={ <AnnualSales /> } />
         <Route path='/dashboard/sales/:id' element={ <SaleDetail /> } />
+        <Route path='/dashboard/sales/pending' element={ <PendingSales /> } />
+        <Route path='/dashboard/sales/print/:id' element={ <TicketSale /> } />
+        <Route path='/errorWidth' element={ <ErrorWidth/> } />
 
       </Routes>
 

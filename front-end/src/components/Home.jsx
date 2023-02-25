@@ -7,6 +7,8 @@ import Button from "react-bootstrap/Button";
 
 import logo from "../assets/logo.svg";
 
+import authenticatedWidth from "../auth/AuthenticatedWidth";
+
 const Home = () => {
 
   /* Validando contenido de inputs  */
@@ -15,6 +17,7 @@ const Home = () => {
   const errorMessage = validate( name, table );
 
   const [ searchParams, setSearchParams ] = useSearchParams();
+  
   useEffect(() => {
 
     let numberTable = searchParams.get( 'mesa' );
@@ -102,4 +105,4 @@ const validate = (name, table) => {
   if (name === "") return "Tienes que ingresar un nombre para continuar";
 };
 
-export default Home;
+export default authenticatedWidth( Home );

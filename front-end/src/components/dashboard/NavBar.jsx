@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Image from "react-bootstrap/Image";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,8 +12,43 @@ import logo from "../../assets/logo-alternativo.svg";
 
 import '../../styles/dashboard.css';
 
+
 function NavBar() {
+  
+  /* setTimeout(() => {
+    window.location.reload();
+  }, 30000); */
+
+  let [ lengthPendingSales, setLengthPendingSales ] = useState( 0 );
+    
+  useEffect(() => {
+
+    const getSales = async () => {
+
+      await fetch('http://localhost:3030/sales/pending')
+        .then(( response ) => response.json())
+        .then(( data ) => {
+          setLengthPendingSales( data.lengthSales );
+        })
+        .catch((e) => console.log(e));
+
+    }
+
+    getSales();
+    
+  }, []);
+
+  const navigate = useNavigate();
+
+  const logOut = () => {
+
+    localStorage.removeItem( 'auth' );
+    navigate('/login');
+
+  }
+
   return (
+
     <Navbar bg="warning" expand="lg">
       <Container fluid>
         <Navbar.Brand href="#">
@@ -35,6 +72,19 @@ function NavBar() {
               <NavDropdown.Item href="/dashboard/sales">Todas</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Nav
+            className="d-flex"
+            style={{ maxHeight: '150px' }}
+          >
+            <Nav.Link href="/dashboard/sales/pending" className='d-flex flex-nowrap align-items-center me-3'>
+              <i className="fa-solid fa-bell fs-5 text-dark fw-semibold me-2" />
+              <p className='text-dark fw-semibold m-0 me-2' style={{ fontSize: '1.125rem' }}>Pedidos Pendientes</p>
+              <p className='text-dark fw-bolder m-0 d-block border border-dark rounded-circle px-2'>{ lengthPendingSales }</p>
+            </Nav.Link>
+            <Button className='bg-transparent border-0 text-dark fw-semibold fs-5' title='Cerrar sesión' onClick={ logOut }>
+              <i className="fa-solid fa-right-from-bracket" />
+            </Button>
+          </Nav>
           {/* <Form className="d-flex">
             <Form.Control
               type="search"
@@ -47,6 +97,7 @@ function NavBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
   );
 }
 

@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 
 import DrinksGroup from './DrinksGroup';
 
+import authenticatedRouteClient from '../../auth/AuthenticatedRouteClient';
+
 let categories = require('../../data/categoriesDrinks.json');
 
 
@@ -48,4 +50,4 @@ const Drinks = () => {
 
 }
 
-export default Drinks;
+export default authenticatedRouteClient( Drinks );

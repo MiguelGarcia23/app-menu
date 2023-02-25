@@ -5,6 +5,8 @@ const salesFilePath = path.join(__dirname, '../data/sales.json');
 let sales = JSON.parse( fs.readFileSync( salesFilePath, 'utf-8' ) );
 sales = sales.sort( ( a, b ) => b.id - a.id );
 
+let salesChecked = sales.filter( sale => sale.checked === true );
+
 /* Configuramos el controlador */
 const salesController = {
 
@@ -12,14 +14,14 @@ const salesController = {
 
         let arrayClients = [];
 
-        sales.forEach( sale => {
+        salesChecked.forEach( sale => {
             if( !arrayClients.includes( sale.client ) ){
                 arrayClients.push( sale.client );
             }
         })
 
         res.status(200).json({
-            sales,
+            sales: salesChecked,
             numberClients: arrayClients.length,
             status: 200,
         });
@@ -31,7 +33,7 @@ const salesController = {
         const date = new Date();
         const actualDate = date.getFullYear() + '-' + ( date.getMonth() + 1 ) + '-' + date.getDate();
 
-        const dailySales = sales.filter( sale => {
+        const dailySales = salesChecked.filter( sale => {
             return sale.date === actualDate;
         })
 
@@ -71,27 +73,9 @@ const salesController = {
             arrayDates.push( currentDate );
         }
 
-        /* let arrayDatesThisWeek = [];
-
-        arrayDatesThisWeek.push( actualDate );
-
-        for ( let i = 0; i < 6; i++ ) {
-            date.setDate( date.getDate() - 1 );
-            
-            let [ year, month, day ] = [
-                date.getFullYear(),
-                date.getMonth(),
-                date.getDate()
-            ];
-        
-            let currentDate = year + '-' + ( month + 1 ) + '-' + day;
-
-            arrayDatesThisWeek.push( currentDate );
-        } */
-
         arrayDates = arrayDates.sort();
 
-        let weeklySales = sales.filter( sale => {
+        let weeklySales = salesChecked.filter( sale => {
             return arrayDates.includes( sale.date );
         })
 
@@ -154,7 +138,7 @@ const salesController = {
         let actualMonth = actualDate.getMonth();
         actualDate = actualDate.getFullYear() + '-' + ( actualMonth + 1 );
 
-        let monthlySales = sales.filter( sale => {
+        let monthlySales = salesChecked.filter( sale => {
 
             let dateJSON = new Date( sale.date );
             dateJSON = dateJSON.getFullYear() + '-' + ( dateJSON.getMonth() + 1 );
@@ -192,7 +176,7 @@ const salesController = {
         const actualDate = new Date();
         const actualYear = actualDate.getFullYear();
 
-        let annualSales = sales.filter( sale => {
+        let annualSales = salesChecked.filter( sale => {
 
             const dateJSON = new Date( sale.date );
             const yearJSON = dateJSON.getFullYear();
@@ -252,6 +236,20 @@ const salesController = {
 
     },
 
+    pending: ( req, res ) => {
+
+        let pendingSales = sales.filter( sale => {
+            return sale.checked === false;
+        });
+
+        res.status(200).json({
+            sales: pendingSales,
+            lengthSales: pendingSales.length,
+            status: 200,
+        });
+
+    },
+
     saleDetail: ( req, res ) => {
 
         const param = JSON.parse( req.params.id );
@@ -300,11 +298,15 @@ const salesController = {
         let sale = {
             id: sales[ sales.length - 1 ].id + 1,
             client: req.body.client,
+            table: JSON.parse( req.body.table ),
             date: actualDate,
             time: actualTime,
             foods: foodsForJSON,
             drinks: drinksForJSON,
-            finalAmount: JSON.parse( req.body.finalAmount )
+            totalAmountBeforeIVA: JSON.parse( req.body.totalAmountBeforeIVA ),
+            iva: JSON.parse( req.body.iva ),
+            finalAmount: JSON.parse( req.body.finalAmount ),
+            checked: false
         }
 
         let salesJSON;
@@ -320,6 +322,43 @@ const salesController = {
         let salesStringifyJSON = JSON.stringify( sales );
 
         fs.writeFileSync( salesFilePath, salesStringifyJSON );
+
+    },
+
+    decline: ( req, res ) => {
+
+        const param = JSON.parse( req.params.id );
+
+        sales = sales.sort( ( a, b ) => a.id - b.id );
+
+        let newSales = sales.filter( sale => sale.id !== param );
+
+        let salesJSON = JSON.stringify( newSales );
+
+        fs.writeFileSync( salesFilePath, salesJSON );
+
+    },
+
+    approve: ( req, res ) => {
+
+        const param = JSON.parse( req.params.id );
+
+        sales = sales.sort( ( a, b ) => a.id - b.id );
+
+        let sale = sales.find( saleJSON => saleJSON.id === param );
+
+        let newSale = {
+            ...sale,
+            checked: true
+        }
+
+        let newSales = sales.filter( saleFile => saleFile.id !== param );
+
+        newSales.push( newSale );
+
+        let salesJSON = JSON.stringify( newSales );
+
+        fs.writeFileSync( salesFilePath, salesJSON );
 
     }
 

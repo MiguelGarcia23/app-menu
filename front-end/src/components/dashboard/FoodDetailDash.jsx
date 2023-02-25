@@ -48,6 +48,20 @@ const FoodDetailDash = () => {
         navigate('/dashboard/foods');
     };
 
+    const availableFood = () => {
+        
+        fetch(`http://localhost:3030/foods/available/${ id }`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'Application/json',
+            },
+            body: JSON.stringify( food ),
+        })
+            .then(response => response.json())
+
+        navigate('/dashboard/foods');
+    };
+
     return (
 
         <>
@@ -66,7 +80,14 @@ const FoodDetailDash = () => {
                         }
                         <div className='d-flex justify-content-evenly align-items-center mb-4'>
                             <Button variant='warning' className='fw-bold' onClick={ nextPageEdit }>Editar comida</Button>
-                            <Button variant='danger' className='fw-bold' onClick={ unavailableFood }>Quitar disponibilidad</Button>
+                            {
+                                food.available === true &&
+                                <Button variant='danger' className='fw-bold' onClick={ unavailableFood }>Quitar disponibilidad</Button>
+                            }
+                            {
+                                food.available === false &&
+                                <Button variant='success' className='fw-bold' onClick={ availableFood }>Habilitar disponibilidad</Button>
+                            }
                         </div>
                     </div>
 

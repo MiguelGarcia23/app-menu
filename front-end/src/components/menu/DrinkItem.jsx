@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-import DrinkDetail from './DrinkDetail';
+import authenticatedRouteClient from '../../auth/AuthenticatedRouteClient';
+
 
 const DrinkItem = ({ id, title, price, description, image }) => {
 
     const [ quantity, setQuantity ] = useState( 0 );
-
-    const [ modalShow, setModalShow ] = useState( false );
 
     useEffect(() => {
         let arrayCart = localStorage.getItem('cartDrinks');
@@ -113,4 +112,4 @@ const DrinkItem = ({ id, title, price, description, image }) => {
 
 }
 
-export default DrinkItem;
+export default authenticatedRouteClient( DrinkItem );

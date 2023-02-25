@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import CartItemDetail from './CartItemDetail';
 import CartItemQuantity from './CartItemQuantity';
 
-/* import hamburguesa from '../assets/burger.jpg' */
+import authenticatedRouteClient from '../auth/AuthenticatedRouteClient';
 
 
 const CartItem = ({ id, title, category, price, image, quantity, finalCart, setFinalCart, groupItems }) => {
@@ -68,4 +68,4 @@ const CartItem = ({ id, title, category, price, image, quantity, finalCart, setF
     )
 }
 
-export default CartItem;
+export default authenticatedRouteClient( CartItem );
